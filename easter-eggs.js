@@ -10,12 +10,18 @@ function Clock() {
   console.log("clock");
 }
 
-function NumberFormatter(...rest) {
+function numberFormatter(...rest) {
   console.log("number");
   this.rest = rest
-  console.log(rest);
   this.snippet = function (number){
-    console.log(number)
+    for(let i = 0; i < rest[1].length; i++) {
+      if(rest[0]*i < number && number < rest[0]*(i+1)){
+        // console.log(rest[0]*Math.pow(10,rest[1].length));
+        return `${number}${rest[1][i]}`
+      } else if(number > rest[0]*Math.pow(10,rest[1].length)){
+        console.log(rest[1].at(-1));
+      }
+    }
   }
 
 }
@@ -23,18 +29,12 @@ function NumberFormatter(...rest) {
 function EasterEgg(program,...rest) {
   let instance
   switch(program){
-    case "clock":
-      instance = new Clock()
-      return instance
-      // break;
+    case "clock": 
+      return instance = new Clock();
     case "tic tac toe":
-      instance = new TicTacToe()
-      return instance
-      // break;
+      return instance = new TicTacToe()
     case "number formatter":
-      instance = new NumberFormatter(...rest)
-      return instance
-      // break;
+      return instance = new numberFormatter(...rest)
   }
 }
 
