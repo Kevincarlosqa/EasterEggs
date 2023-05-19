@@ -1,5 +1,12 @@
 function TicTacToe() {
   console.log("tic tac");
+  let matrix = [[" "," "," "], [" "," "," "], [" "," "," "]]
+  console.log("\n\t"+"It's turn!"+"\n\n\n"+
+              "\t "+matrix[0][0]+"| "+matrix[1][0]+" |"+matrix[2][0]+"\n"+
+              "\t"+"-".repeat(9)+"\n"+
+              "\t "+matrix[0][1]+"| "+matrix[1][1]+" |"+matrix[2][1]+"\n"+
+              "\t"+"-".repeat(9)+"\n"+
+              "\t "+matrix[0][2]+"| "+matrix[1][2]+" |"+matrix[2][2]+"\n\n");
 }
 
 function Loader() {
