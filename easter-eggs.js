@@ -7,7 +7,6 @@ function Loader() {
 }
 let intervalo
 function Clock() {
-  console.log("clock");
   let hora = new Date()
   let horas = hora.getHours() < 10 ? "0"+hora.getHours():hora.getHours()
   let minutos = hora.getMinutes() < 10 ? "0"+hora.getMinutes():hora.getMinutes()
@@ -18,12 +17,13 @@ function Clock() {
     intervalo = setInterval(Clock, 1000);
   }
   // setInterval(Clock,1000)
-  function hola() {
+  function stop() {
     clearInterval(intervalo)
     console.clear()
     console.log("Let's keep playing!")
+    return intervalo = undefined
   }
-  window.addEventListener('click',hola)
+  window.addEventListener('click',stop)
 }
 
 function numberFormatter(...rest) {
