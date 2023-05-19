@@ -5,9 +5,25 @@ function TicTacToe() {
 function Loader() {
   console.log("loader");
 }
-
+let intervalo
 function Clock() {
   console.log("clock");
+  let hora = new Date()
+  let horas = hora.getHours() < 10 ? "0"+hora.getHours():hora.getHours()
+  let minutos = hora.getMinutes() < 10 ? "0"+hora.getMinutes():hora.getMinutes()
+  let segundos = hora.getSeconds() < 10 ? "0"+hora.getSeconds():hora.getSeconds()
+  console.clear()
+  console.log(`${horas}:${minutos}:${segundos}`);
+  if (!intervalo) {
+    intervalo = setInterval(Clock, 1000);
+  }
+  // setInterval(Clock,1000)
+  function hola() {
+    clearInterval(intervalo)
+    console.clear()
+    console.log("Let's keep playing!")
+  }
+  window.addEventListener('click',hola)
 }
 
 function numberFormatter(...rest) {
