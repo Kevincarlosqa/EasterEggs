@@ -7,6 +7,7 @@ function Loader() {
 }
 let intervalo
 function Clock() {
+  console.clear()
   let hora = new Date()
   let horas = hora.getHours() < 10 ? "0"+hora.getHours():hora.getHours()
   let minutos = hora.getMinutes() < 10 ? "0"+hora.getMinutes():hora.getMinutes()
@@ -43,16 +44,45 @@ function numberFormatter(...rest) {
 }
 
 function EasterEgg(program,...rest) {
-  let instance
   switch(program){
     case "clock": 
-      return instance = new Clock();
+      return new Clock();
     case "tic tac toe":
-      return instance = new TicTacToe()
+      return new TicTacToe()
     case "number formatter":
-      return instance = new numberFormatter(...rest)
+      return new numberFormatter(...rest)
   }
+  console.clear()
 }
 
 
 // game = new EasterEgg("number formatter",1000,["g","Kg"])
+function Marquee(sentence, length) {
+  let splitSentence = sentence.split("")
+  let lengthSen = Array(length).fill(" ")
+  console.log(splitSentence);
+  console.log(lengthSen);
+
+  this.run = function() {
+    let index = 0
+    const animate = () => {
+      if (splitSentence[index]){
+        lengthSen.push(`${splitSentence[index]}`)
+      } else {
+        lengthSen.push(" ")
+      }
+      lengthSen.shift()
+      console.clear();
+      console.log(lengthSen.join(""))
+      index += 1
+      if(index > length+sentence.length){
+        index = 0
+        console.log("wewed");
+        console.clear()
+        clearInterval(intervalo)
+        return intervalo = undefined
+      }
+    }
+    intervalo = setInterval(animate,200)
+  }
+}
