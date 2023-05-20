@@ -8,10 +8,19 @@ function TicTacToe() {
               "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
   let play = []
 
+  let winner = function(matrix, win){
+    for(let i = 0; i <= 2; i++){
+      if(matrix[i][0] == matrix[i][1] && matrix[i][1] == matrix[i][2] && matrix[i][0] == matrix[i][2] && matrix[i][0] != " " && matrix[i][1] != " " && matrix[i][2] != " "){
+        return console.log(`${win} won!!`)
+      } else if(matrix[0][i] == matrix[1][i] && matrix[1][i] == matrix[2][i] && matrix[0][i] == matrix[2][i] && matrix[0][i] != " " && matrix[1][i] != " " && matrix[2][i] != " ") {
+        return console.log(`${win} won!!`)
+      }
+    }
+  }
   const animate = (x, y, index) => {
     console.clear()
     console.log(index%2);
-    if(matrix[x][y] !== " ") {console.error("Este sitio ya esta ocupado")}
+    // if(matrix[x][y] !== " ") {return console.error("The given coordinate is already taken")}
     if(index%2 == 0){
       matrix[x][y] = "O"
       console.log("\n\t"+"It's X turn!"+"\n\n\n"+
@@ -20,6 +29,8 @@ function TicTacToe() {
                 "\t"+matrix[0][1]+" | "+matrix[1][1]+" | "+matrix[2][1]+"\n"+
                 "\t"+"-".repeat(9)+"\n"+
                 "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
+      console.log(matrix);
+      winner(matrix, "O")
     } else if(index%2 == 1){
       matrix[x][y] = "X"
       console.log("\n\t"+"It's O turn!"+"\n\n\n"+
@@ -28,18 +39,20 @@ function TicTacToe() {
                 "\t"+matrix[0][1]+" | "+matrix[1][1]+" | "+matrix[2][1]+"\n"+
                 "\t"+"-".repeat(9)+"\n"+
                 "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
+      winner(matrix, "X")
     }
   }
   let index = 0
   this.snippet = {
     play: function(x, y) {
-      console.log(x);
-      console.log(y);
-
       if((typeof y !== 'undefined') && (typeof y !== 'undefined')) {
+        if(matrix[x][y] !== " ") {
+          console.error("The given coordinate is already taken")
+        } else{
         setInterval(animate(x, y, index),300)
         console.log(index);
         index += 1
+        }
       }
     }
   }              
