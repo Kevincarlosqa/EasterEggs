@@ -1,12 +1,48 @@
 function TicTacToe() {
-  console.log("tic tac");
   let matrix = [[" "," "," "], [" "," "," "], [" "," "," "]]
-  console.log("\n\t"+"It's turn!"+"\n\n\n"+
-              "\t "+matrix[0][0]+"| "+matrix[1][0]+" |"+matrix[2][0]+"\n"+
+  console.log("\n\t"+"It's O turn!"+"\n\n\n"+
+              "\t"+matrix[0][0]+" | "+matrix[1][0]+" | "+matrix[2][0]+"\n"+
               "\t"+"-".repeat(9)+"\n"+
-              "\t "+matrix[0][1]+"| "+matrix[1][1]+" |"+matrix[2][1]+"\n"+
+              "\t"+matrix[0][1]+" | "+matrix[1][1]+" | "+matrix[2][1]+"\n"+
               "\t"+"-".repeat(9)+"\n"+
-              "\t "+matrix[0][2]+"| "+matrix[1][2]+" |"+matrix[2][2]+"\n\n");
+              "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
+  let play = []
+
+  const animate = (x, y, index) => {
+    console.clear()
+    console.log(index%2);
+    if(matrix[x][y] !== " ") {console.error("Este sitio ya esta ocupado")}
+    if(index%2 == 0){
+      matrix[x][y] = "O"
+      console.log("\n\t"+"It's X turn!"+"\n\n\n"+
+                "\t"+matrix[0][0]+" | "+matrix[1][0]+" | "+matrix[2][0]+"\n"+
+                "\t"+"-".repeat(9)+"\n"+
+                "\t"+matrix[0][1]+" | "+matrix[1][1]+" | "+matrix[2][1]+"\n"+
+                "\t"+"-".repeat(9)+"\n"+
+                "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
+    } else if(index%2 == 1){
+      matrix[x][y] = "X"
+      console.log("\n\t"+"It's O turn!"+"\n\n\n"+
+                "\t"+matrix[0][0]+" | "+matrix[1][0]+" | "+matrix[2][0]+"\n"+
+                "\t"+"-".repeat(9)+"\n"+
+                "\t"+matrix[0][1]+" | "+matrix[1][1]+" | "+matrix[2][1]+"\n"+
+                "\t"+"-".repeat(9)+"\n"+
+                "\t"+matrix[0][2]+" | "+matrix[1][2]+" | "+matrix[2][2]+"\n\n");
+    }
+  }
+  let index = 0
+  this.snippet = {
+    play: function(x, y) {
+      console.log(x);
+      console.log(y);
+
+      if((typeof y !== 'undefined') && (typeof y !== 'undefined')) {
+        setInterval(animate(x, y, index),300)
+        console.log(index);
+        index += 1
+      }
+    }
+  }              
 }
 
 function Loader() {
