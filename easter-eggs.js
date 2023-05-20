@@ -1,4 +1,5 @@
 function TicTacToe() {
+  // new Loader()
   let matrix = [[" "," "," "], [" "," "," "], [" "," "," "]]
   console.log("\n\t"+"It's O turn!"+"\n\n\n"+
               "\t"+matrix[0][0]+" | "+matrix[1][0]+" | "+matrix[2][0]+"\n"+
@@ -58,9 +59,23 @@ function TicTacToe() {
   }              
 }
 
-function Loader() {
+function Loader(frames = ["loading", "loading.", "loading..", "loading..."]) {
   console.log("loader");
+  let index = 0;
+  let interval
+  const animate = () => {
+    if (index >= frames.length) index = 0;
+    console.clear();
+    console.log(frames[index]);
+    index += 1;
+  };
+  interval = setInterval(animate, 500);
+  setTimeout(() => {
+    clearInterval(interval);
+    console.clear();
+  }, 3000);
 }
+
 let intervalo
 function Clock() {
   console.clear()
@@ -100,6 +115,7 @@ function numberFormatter(...rest) {
 }
 
 function EasterEgg(program,...rest) {
+  // new Loader()
   switch(program){
     case "clock": 
       return new Clock();
