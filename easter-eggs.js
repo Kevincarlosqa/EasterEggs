@@ -52,28 +52,45 @@ function TicTacToe() {
         } else{
         setInterval(animate(x, y, index),300)
         console.log(index);
-        index += 1
+        index += 1;
         }
       }
     }
   }              
 }
 
-function Loader(frames = ["loading", "loading.", "loading..", "loading..."]) {
+function Loader(frames = ["|", "/", "\u2014", "\\"]) {
   console.log("loader");
-  let index = 0;
+  // let index = 0;
+  this.execute
   let interval
+  let index = 0;
   const animate = () => {
     if (index >= frames.length) index = 0;
     console.clear();
     console.log(frames[index]);
     index += 1;
   };
-  interval = setInterval(animate, 500);
-  setTimeout(() => {
-    clearInterval(interval);
-    console.clear();
-  }, 3000);
+  // interval = setInterval(animate, 500);
+  // setTimeout(() => {
+  //   clearInterval(interval);
+  //   console.clear();
+  // }, 3000);
+
+  this.render = function () {
+    return setInterval(animate, 200);
+  };
+
+  this.load = function (callback, ...args) {
+    const intervalId = this.render();
+    // clearInterval(intervalId);
+    // setTimeout(clearInterval, 5000, intervalId);
+    setTimeout(() => {
+      clearInterval(intervalId);
+      this.execute = callback(...args);
+      console.clear();
+    }, 3000);
+  };
 }
 
 let intervalo
@@ -83,7 +100,6 @@ function Clock() {
   let horas = hora.getHours() < 10 ? "0"+hora.getHours():hora.getHours()
   let minutos = hora.getMinutes() < 10 ? "0"+hora.getMinutes():hora.getMinutes()
   let segundos = hora.getSeconds() < 10 ? "0"+hora.getSeconds():hora.getSeconds()
-  console.clear()
   console.log(`${horas}:${minutos}:${segundos}`);
   if (!intervalo) {
     intervalo = setInterval(Clock, 1000);
@@ -114,27 +130,15 @@ function numberFormatter(...rest) {
 
 }
 
-function EasterEgg(program,...rest) {
-  // new Loader()
-  switch(program){
-    case "clock": 
-      return new Clock();
-    case "tic tac toe":
-      return new TicTacToe()
-    case "number formatter":
-      return new numberFormatter(...rest)
-  }
-  console.clear()
-}
 
 
 // game = new EasterEgg("number formatter",1000,["g","Kg"])
 function Marquee(sentence, length) {
+  console.log(sentence);
+  console.log(length);
   let splitSentence = sentence.split("")
   let lengthSen = Array(length).fill(" ")
-  console.log(splitSentence);
-  console.log(lengthSen);
-
+  
   this.run = function() {
     let index = 0
     const animate = () => {
@@ -149,7 +153,6 @@ function Marquee(sentence, length) {
       index += 1
       if(index > length+sentence.length){
         index = 0
-        console.log("wewed");
         console.clear()
         clearInterval(intervalo)
         return intervalo = undefined
@@ -157,4 +160,32 @@ function Marquee(sentence, length) {
     }
     intervalo = setInterval(animate,200)
   }
+  this.stop = function() {
+    clearInterval(intervalo)
+    console.clear()
+    return intervalo = undefined
+  }
+}
+function EasterEgg(program,...rest) {
+  let loader = new Loader()
+  console.log(rest);
+  switch(program){
+    case "clock": 
+    loader.load(Clock)
+    // return new Clock();
+    break
+    case "tic tac toe":
+      let tictactoe = new TicTacToe()
+      return loader.load(tictactoe.snippet.play)
+      // return new TicTacToe()
+      break
+      case "marquee":
+      let marquee = new Marquee(rest[0],rest[1])
+      console.log(rest[0]);
+      loader.load(marquee.run)
+      break
+    case "number formatter":
+      return new numberFormatter(...rest)
+  }
+  // console.clear()
 }
